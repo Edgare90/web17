@@ -1,0 +1,939 @@
+
+*,
+*:after,
+*::before {
+    /* -webkit-box-sizing: border-box; */
+    ox; */
+    -moz-box-sizing: border-box;
+    /* box-sizing: border-box; */
+}
+
+.scroller {
+	overflow-y: scroll;
+}
+
+.scroller,
+.scroller-inner {
+	position: relative;
+}
+
+
+.menu-trigger {
+	position: relative;
+	padding-left: 60px;
+	font-size: 0.9em;
+}
+
+.menu-trigger:before {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 40px;
+	height: 6px;
+	background: #fff;
+	box-shadow: 0 6px #34495e, 0 12px #fff, 0 18px #34495e, 0 24px #fff;
+	content: '';
+}
+
+.mp-pusher {
+	position: fixed;
+	left: -100%;
+	height: 100%;
+	width: 100%;
+	z-index: 3000000;
+	TOP: 69px;
+      overflow-y: auto;
+}
+
+.mp-menu {
+	position: absolute; /* we can't use fixed here :( */
+	top: 0;
+	left: -13px;
+	z-index: 1;
+	width: 100%;
+	height: 92%;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(1px, 0, 0);
+}
+
+.mp-level {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+/* overlays for pusher and for level that gets covered */
+.mp-pusher::after,
+.mp-level::after,
+.mp-level::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	content: '';
+	opacity: 0;
+}
+
+.mp-pusher::after,
+.mp-level::after {
+	background: rgba(0,0,0,0.3);
+	-webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+	-moz-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+	transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+}
+
+.mp-level::after {
+	z-index: -1;
+}
+
+.mp-pusher.mp-pushed::after,
+.mp-level.mp-level-overlay::after {
+	/* width: 100%; */
+	/* height: 100%; */
+	opacity: 1;
+	-webkit-transition: opacity 0.3s;
+	-moz-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.mp-level.mp-level-overlay {
+	cursor: pointer;
+}
+
+.mp-level.mp-level-overlay.mp-level::before {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	opacity: 1;
+}
+
+.mp-pusher,
+.mp-level {
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+/* overlap */
+.mp-overlap .mp-level.mp-level-open {
+	box-shadow: 1px 0 2px rgba(0,0,0,0.2);
+	-webkit-transform: translate3d(-40px, 0, 0);
+	-moz-transform: translate3d(-40px, 0, 0);
+	transform: translate3d(-40px, 0, 0);
+}
+
+/* First level */
+.mp-menu > .mp-level,
+.mp-menu > .mp-level.mp-level-open,
+.mp-menu.mp-overlap > .mp-level,
+.mp-menu.mp-overlap > .mp-level.mp-level-open {
+	box-shadow: none;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	/* background-color: #ffffff; */
+}
+
+/* cover */
+.mp-cover .mp-level.mp-level-open {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+/* content style */
+.mp-menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mp-menu h2 {
+	margin: 0px 0;
+	padding: 31px;
+	color: rgb(255, 255, 255);
+	text-shadow: 0 0 1px rgba(0,0,0,0.1);
+	font-weight: 800;
+	font-size: 2em;
+	text-align: center;
+	background-color: #f44b4b;
+	font-size: 30px;
+}
+
+.mp-menu.mp-overlap h2::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 8px;
+	font-size: 75%;
+	line-height: 1.8;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.1s 0.3s;
+	-moz-transition: opacity 0.3s, -moz-transform 0.1s 0.3s;
+	transition: opacity 0.3s, transform 0.1s 0.3s;
+	-webkit-transform: translateX(-100%);
+	-moz-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+.mp-menu.mp-cover h2 {
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 1px;
+	font-size: 1em;
+}
+
+.mp-overlap .mp-level.mp-level-overlay > h2::before {
+	opacity: 1;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	-moz-transition: -moz-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transform: translateX(0);
+	-moz-transform: translateX(0);
+	transform: translateX(0);
+}
+
+.mp-menu ul li > a {
+	display: block;
+	padding: 0.7em 1em -0.3em 1.8em;
+	outline: none;
+	/* text-shadow: 0 0 1px rgba(255,255,255,0.1); */
+	font-size: 12px;
+	-webkit-transition: background 0.3s, box-shadow 0.3s;
+	-moz-transition: background 0.3s, box-shadow 0.3s;
+	transition: background 0.3s, box-shadow 0.3s;
+	text-align: center;
+	padding: 16px 0;
+	line-height: 14px;
+}
+
+.mp-menu ul li::before {
+	position: absolute;
+	left: 10px;
+	z-index: -1;
+	color: rgba(0,0,0,0.2);
+	line-height: 3.5;
+}
+
+.mp-level > ul > li:first-child > a {
+}
+
+.mp-menu ul li a:hover,
+.mp-level > ul > li:first-child > a:hover {
+	background: rgba(0,0,0,0.2);
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+.mp-menu .mp-level.mp-level-overlay > ul > li > a,
+.mp-level.mp-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+.mp-level > ul > li:first-child > a:hover,
+.mp-level.mp-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
+	margin-top: 34px;
+} /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+
+.mp-back {
+	background: rgba(241, 15, 15, 0.75);
+	outline: none;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	display: block;
+	font-size: 0.8em;
+	padding: 1em;
+	position: relative;
+	box-shadow: inset 0 1px rgba(0,0,0,0.1);
+	-webkit-transition: background 0.3s;
+	-moz-transition: background 0.3s;
+	transition: background 0.3s;
+	text-align: center;
+}
+
+.mp-back::after {
+	font-family: 'linecons';
+	position: absolute;
+	content: "\e037";
+	right: 10px;
+	font-size: 1.3em;
+	color: rgba(0,0,0,0.3);
+}
+
+.mp-menu .mp-level.mp-level-overlay > .mp-back,
+.mp-menu .mp-level.mp-level-overlay > .mp-back::after {
+	background: transparent;
+	box-shadow: none;
+	color: transparent;
+}
+
+/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
+/* We'll show the first level only */
+.no-csstransforms3d .mp-pusher,
+.no-js .mp-pusher {
+	padding-left: 300px;
+}
+
+.no-csstransforms3d .mp-menu .mp-level,
+.no-js .mp-menu .mp-level {
+	display: none;
+}
+
+.no-csstransforms3d .mp-menu > .mp-level,
+.no-js .mp-menu > .mp-level {
+	display: block;
+}
+#mp-menu {
+    background-color: black;
+    /* height: 100%; */
+    border: 5px solid #f44b4b;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@font-face {
+	font-family: 'icomoon';
+	src: url('../fonts/icomoon.eot');
+	src: url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.ttf') format('truetype'),
+		url('../fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Windows Chrome ugly fix http://stackoverflow.com/questions/13674808/chrome-svg-font-rendering-breaks-layout/14345363#14345363 */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	@font-face {
+		font-family: 'icomoon';
+		src: url('../fonts/icomoon.svg#icomoon') format('svg');
+	};
+}
+
+.icono {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+.icono img {
+    
+}
+
+
+a, li {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	/* width: 91%; */
+}
+
+
+
+.solucionesMenu .nav li{
+    position:relative;
+    background-size:cover;
+    
+}
+.solucionesMenu .nav li span{
+    z-index: 100;
+    
+}
+
+
+.solucionesMenu .nav li {
+    float: left;
+    width: 16.66666666666667%;
+    text-align: center;
+    -webkit-transition: border .5s;
+    -moz-transition: border .5s;
+    -o-transition: border .5s;
+    -ms-transition: border .5s;
+    transition: border .5s;
+}
+.solucionesMenu .nav li:hover:after{
+    opacity:.3;
+      cursor: pointer;
+    padding-top: 87px;
+    color: #fff;
+    transform: scale(0.9);
+}
+
+
+
+
+.solucionesMenu .nav li span {
+	display: block;
+	font-family: Poppins;
+	font-size: 12px;
+	margin-top: 20p;
+}
+
+.solucionesMenu .nav a {
+     transition: all 0.5s ease;
+	display: block;
+	    color: #0086C5;
+	text-decoration: none;
+	-webkit-transition: color .5s, background .5s, height .5s;
+	-moz-transition: color .5s, background .5s, height .5s;
+	-o-transition: color .5s, background .5s, height .5s;
+	-ms-transition: color .5s, background .5s, height .5s;
+	transition: color .5s, background .5s, height .5s;
+}
+
+
+.solutext {
+    font-size: 12px !important;
+}
+
+
+
+.solucionesMenu .nav img{
+	/* Make the font smoother for Chrome */
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+        margin-top: -6px;
+}
+
+/* Remove the blue Webkit background when element is tapped */
+
+.solucionesMenu a, button {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Hover effect for the whole navigation to make the hovered item stand out */
+
+.solucionesMenu .no-touch .nav ul:hover a {
+	color: rgba(249, 249, 249, .5);
+}
+
+.solucionesMenu .no-touch .nav ul:hover a:hover {
+	color: rgba(249, 249, 249, 0.99);
+}
+
+/* Adding some background color to the different menu items */
+
+
+
+
+
+
+
+
+
+/* For screen bigger than 800px */
+@media (min-width: 50em) {
+
+	/* Transforms the list into a horizontal navigation */
+	.solucionesMenu .nav li {
+		float: left;
+		width: 19%;
+		text-align: center;
+		-webkit-transition: border .5s;
+		-moz-transition: border .5s;
+		-o-transition: border .5s;
+		-ms-transition: border .5s;
+		transition: border .5s;
+	}
+
+	.solucionesMenu .nav a {
+		display: block;
+		width: auto;
+	}
+
+	/* hover, focused and active effects that add a little colored border to the different items */
+	.solucionesMenu .no-touch .nav li:nth-child(6n+1) a:hover,
+	.solucionesMenu .no-touch .nav li:nth-child(6n+1) a:focus {
+		border-bottom: 4px solid rgb(174, 78, 1);
+	}
+
+	.no-touch .nav li:nth-child(6n+2) a:hover,
+	.no-touch .nav li:nth-child(6n+2) a:focus {
+		border-bottom: 4px solid rgb(191, 117, 20);
+	}
+
+	.solucionesMenu .no-touch .nav li:nth-child(6n+3) a:hover,
+	.solucionesMenu .no-touch .nav li:nth-child(6n+3) a:focus {
+		border-bottom: 4px solid rgb(12, 110, 149);
+	}
+
+	.solucionesMenu .no-touch .nav li:nth-child(6n+4) a:hover,
+	.solucionesMenu .no-touch .nav li:nth-child(6n+4) a:focus {
+		border-bottom: 4px solid rgb(10, 75, 117);
+	}
+
+	.solucionesMenu .no-touch .nav li:nth-child(6n+5) a:hover,
+	.solucionesMenu .no-touch .nav li:nth-child(6n+5) a:focus {
+		border-bottom: 4px solid rgb(16, 34, 44);
+	}
+
+	.no-touch .nav li:nth-child(6n+6) a:hover,
+	.no-touch .nav li:nth-child(6n+6) a:focus {
+		border-bottom: 4px solid rgb(9, 18, 25);
+	}
+
+	/* Placing the icon */
+	
+	.solucionesMenu .icon {
+		padding-top: 2.4em;
+	}
+
+	.solucionesMenu .icon + span {
+		margin-top: 0.1em;
+		-webkit-transition: margin .5s;
+		-moz-transition: margin .5s;
+		-o-transition: margin .5s;
+		-ms-transition: margin .5s;
+		transition: margin .5s;
+	}
+
+	/* Animating the height of the element*/
+	.solucionesMenu .nav a {
+	    height: 9em;
+       color: #ffffff;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 25%;
+        
+	}
+    .solucionesMenu .nav .closebtn{
+                color: #fff;
+    width: 100% !important;
+    text-align: right !important;
+    }
+    
+.solucionesMenu .nav li {
+
+    font-weight: 800;
+    }
+    
+    .solucionesMenu .nav li{
+    opacity:1;
+       transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+         color: #fff !important;
+         transform: scale(1);
+            margin: 2px;
+    }
+    .solucionesMenu .nav .nivel1:hover{
+    opacity:.5;
+     color: #fff;
+      transform: scale(0.8);
+}
+
+    
+.solucionesMenu .nav .nivel1:nth-child(8n+1) {
+  background: #D06503;
+}
+
+.solucionesMenu .nav .nivel1:nth-child(8n+2) {
+     background: #E9931A;
+}
+
+.solucionesMenu .nav .nivel1:nth-child(8n+3) {
+        background: #1691BE;
+      
+
+}
+
+.solucionesMenu .nav .nivel1:nth-child(8n+4) {
+  background:#166BA2;
+  	
+}
+
+.solucionesMenu .nav .nivel1:nth-child(8n+5) {
+ background: #1B3647;
+ 
+  	
+}
+    .solucionesMenu .nav .nivel1:nth-child(8n+6) {
+ background: #152836;
+ 
+  	
+}
+
+    .solucionesMenu .nav .nivel1:nth-child(8n+7) {
+ background: #A7B931;
+ 
+  	
+}
+
+   .solucionesMenu .nav .nivel1:nth-child(8n+8) {
+ background: #18C8D2;
+ 
+  	
+}
+
+	/* Making the text follow the height animation */
+	.solucionesMenu .no-touch .nav a:hover .icon + span {
+		margin-top: 3.2em;
+		-webkit-transition: margin .5s;
+		-moz-transition: margin .5s;
+		-o-transition: margin .5s;
+		-ms-transition: margin .5s;
+		transition: margin .5s;
+	}
+
+   
+    
+	/* Positioning the icons and preparing for the animation*/
+	.solucionesMenu .nav i {
+		position: relative;
+		display: inline-block;
+		/* margin: 0 auto; */
+		padding: 25px;
+		/* border-radius: 64%; */
+		/* font-size: 1.8em; */
+		/* box-shadow: 0 0 0 30px transparent; */
+		/* background: rgba(255,255,255,0.1); */
+		/* -webkit-transform: translate3d(0, 0, 0); */
+		-moz-transform: translate3d(0, 0, 0);
+		-o-transform: translate3d(0, 0, 0);
+		-ms-transform: translate3d(0, 0, 0);
+		/* transform: translate3d(0, 0, 0); */
+		/* -webkit-transition: box-shadow .6s ease-in-out; */
+		-moz-transition: box-shadow .6s ease-in-out;
+		-o-transition: box-shadow .6s ease-in-out;
+		-ms-transition: box-shadow .6s ease-in-out;
+		/* transition: box-shadow .6s ease-in-out; */
+		background-size: 38px;
+		background-repeat: no-repeat;
+		/* background-attachment: fixed; */
+		background-position: center;
+		z-index: 1;
+	}	
+	
+ 
+    
+	/* Animate the box-shadow to create the effect */
+	.solucionesMenu .no-touch .nav a:hover i,
+	.solucionesMenu .no-touch .nav a:focus i {		
+		box-shadow: 0 0 0 0 rgba(255,255,255,0.2);
+		-webkit-transition: box-shadow .4s ease-in-out;
+		-moz-transition: box-shadow .4s ease-in-out;
+		-o-transition: box-shadow .4s ease-in-out;
+		-ms-transition: box-shadow .4s ease-in-out;
+		transition: box-shadow .4s ease-in-out;
+	}
+		
+}
+
+@media (min-width: 50em) and (max-width: 61.250em) {
+
+	/* Size and font adjustments to make it fit into the screen*/
+	.solucionesMenu .nav ul {
+		font-size: 1.2em;
+	}
+
+}
+
+/* The "tablet" and "mobile" version */
+
+@media (max-width: 49.938em) {		
+	
+
+	.solucionesMenu .nav ul li {
+		-webkit-transition: background 0.5s;
+		-moz-transition: background 0.5s;
+		-o-transition: background 0.5s;
+		-ms-transition: background 0.5s;
+		transition: background 0.5s;
+		height: 104px;
+	}	
+
+}
+
+/* CSS specific to the 2x3 columns version */
+@media (min-width:32.5em) and (max-width: 49.938em) {
+	
+	/* Creating the 2 column layout using floating elements once again */
+	.solucionesMenu .nav li {
+		display: block;
+		float: left;
+		width: 100%;
+	}
+	
+	/* Adding some padding to make the elements look nicer*/
+	.solucionesMenu .solucionesMenu .nav a {
+		padding: 0.8em;		
+	}
+
+	/* Displaying the icons on the left, and the text on the right side using inlin-block*/
+	.solucionesMenu .nav li span, 
+	.solucionesMenu .nav li span.icon {
+		display: inline-block;
+	}
+
+	.solucionesMenu .nav li span.icon {
+		width: 29%;
+	}
+
+	.solucionesMenu .nav li .icon + span {
+		font-size: 1em;
+	}
+
+	.solucionesMenu .icon + span {
+		position: relative;
+		top: -0.2em;
+	}
+
+	/* Adaptating to the icons to animate the size and border of the rounded background in a more discreet way */
+	.solucionesMenu .nav li i {
+		display: inline-block;
+		padding: 8% 9%;
+		border: 4px solid transparent;
+		border-radius: 50%;
+		font-size: 1.5em;
+		background: rgba(255,255,255,0.1);
+		-webkit-transition: border .5s;
+		-moz-transition: border .5s;
+		-o-transition: border .5s;
+		-ms-transition: border .5s;
+		transition: border .5s;
+	}
+
+	/* Transition effect on the border color */
+	.solucionesMenu.solucionesMenu .no-touch .nav li:hover i,
+	.solucionesMenu .no-touch .nav li:focus i {
+		border: 4px solid rgba(255,255,255,0.1);
+	}
+	
+}
+
+/* Adapting the font size and width for smaller screns*/
+@media (min-width: 32.5em) and (max-width: 38.688em) {
+	
+	.solucionesMenu .nav li span.icon {
+		width: 50%;
+	}
+
+	.solucionesMenu .nav li .icon + span {
+		font-size: 0.9em;
+	}
+}
+
+/* Styling the toggle menu link and hiding it */
+.solucionesMenu .nav .navtoogle{
+	display: none;
+	width: 100%;
+	padding: 0.5em 0.5em 0.8em;
+	font-family: 'Lato',Calibri,Arial,sans-serif;
+	font-weight: normal;
+	text-align: left;
+	color: rgb(7, 16, 15);
+	font-size: 1.2em;
+	background: none;
+	border: none;
+	border-bottom: 4px solid rgb(221, 221, 221);
+	cursor: pointer;
+}
+
+.solucionesMenu .navtoogle i{
+	z-index:-1;
+}
+
+.solucionesMenu .icon-menu {
+	position: relative;
+	top: 3px;
+	line-height: 0;
+	font-size: 1.6em;
+}
+
+@media (max-width: 32.438em) {
+    .solucionTitulo {
+        font-size: 15px;
+        
+    }
+	/* Unhiding the styled menu link */
+	.solucionesMenu .nav .navtoogle{
+		margin: 0;
+		display: block;
+	}
+	
+	/* Animating the height of the navigation when the button is clicked */
+	
+	/* When JavaScript is disabled, we hide the menu */
+	.solucionesMenu .no-js .nav ul {
+		max-height: 30em;
+		overflow: hidden;
+	}
+	
+	/* When JavaScript is enabled, we hide the menu */
+	.solucionesMenu .js .nav ul {
+		max-height: 0em;
+		overflow: hidden;
+	}
+	
+	/* Displaying the menu when the user has clicked on the button*/
+	
+
+	/* Adapting the layout of the menu for smaller screens : icon on the left and text on the right*/
+	
+	.solucionesMenu .nav li span {
+		display: inline-block;
+		height: 100%;
+	}
+
+	.solucionesMenu .nav a {
+		padding: 0.5em;	
+        font-weight: 800;
+	}
+	
+	.solucionesMenu .icon + span {
+		margin-left: 1em;
+		font-size: 0.8em;
+	}
+	
+    .solucionesMenu .nav li{
+        width:100%;
+    }
+
+	
+	/* make the nav bigger on touch screens */
+	.solucionesMenu .touch .nav a {
+		padding: 0.8em;
+	}
+}
+
+
+.mp-level ul ul{
+      -moz-column-count: 3;
+    -moz-column-gap: 10px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 10px;
+    column-count: 3;
+    column-gap: 10px;
+    
+}
+
+
+.mp-back {
+    
+    margin-top: 30px;
+}
+
+
+.icon-world {
+    /* margin-top: 20px; */
+}
+
+
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(53, 130, 173);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align:center;
+	    z-index: 1000000;
+}
+
+.sidenav a {
+ 
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sidenav a:hover{
+    color: #f1f1f1;
+    
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+        color: #fff !important;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.imgSoluciones{
+    height: 94px;
+    margin-bottom: 7px;
+    margin: -31px auto;
+    display: block;
+    
+}
+.soluc{
+          margin-bottom: 73px;
+      
+    height: 100px;
+}
+.soluc:hover{
+       background-color: rgba(255, 255, 255, 0.26);
+
+}
