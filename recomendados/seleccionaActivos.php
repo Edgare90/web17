@@ -13,8 +13,6 @@
 <body>
 <?php
 require_once 'clases/conexion.php';
-//require_once 'alumno.entidad.php';
-//require_once 'alumno.model.php';
 class Recomendado
 {
     private $idRecomendacion;
@@ -66,7 +64,6 @@ class AlumnoModel
 	
 	public function Actualizar($idRecomendacion, $nvoEstatus)
     {
-		 /*return $idRecomendacion;*/
        try 
         {
 			$conexion = new Conexion();

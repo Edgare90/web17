@@ -3,6 +3,6 @@ https://github.com/susannalles/MinimalEditions/wiki/Lista-Comandos-Git
 https://stackoverflow.com/questions/16433970/unable-to-auto-detect-email-address
 https://stackoverflow.com/questions/38934200/origin-does-not-appear-to-be-a-git-repository
 https://github.com/adrianblanco/journocoders_git_github/blob/master/tutorial.md
-
+https://www.atlassian.com/git/tutorials/git-log
 
 cambios
