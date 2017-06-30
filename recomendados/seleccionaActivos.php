@@ -28,7 +28,6 @@ class Recomendado
     public function __SET($k, $v){ return $this->$k = $v;}
 }
 
-
 class AlumnoModel
 {
     private $pdo;
